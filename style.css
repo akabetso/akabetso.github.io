@@ -59,6 +59,12 @@ nav a:hover {
     margin-bottom: 1rem;
 }
 
+.hero-img {
+    width: 100vw;          
+    height: 25vh;        
+    background: url("images/cc0.png") center/cover no-repeat;
+}
+
 section {
     max-width: 1200px;
     margin: 4rem auto;
