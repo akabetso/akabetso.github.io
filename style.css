@@ -47,8 +47,7 @@ nav a:hover {
 #hero {
     width: 100vw;             
     height: 25vh;               
-    background: url("images/cc0.png") center/contain no-repeat;
-    background-color: #000;    
+    background: url("images/cc0.png") center/cover no-repeat;
     color: white;
     text-align: center;
     display: flex;             
