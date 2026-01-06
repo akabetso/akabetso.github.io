@@ -56,12 +56,6 @@ nav a:hover {
     align-items: center;
 }
 
-#hero h2 {
-    color: #ffcc00; ;   
-    font-size: 3rem;
-    margin: 0 0 1rem;
-}
-
 section {
     max-width: 1200px;
     margin: 4rem auto;
@@ -69,7 +63,7 @@ section {
 }
 
 h2 {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     margin-bottom: 2rem;
     color: white;
 }
