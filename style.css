@@ -45,12 +45,12 @@ nav a:hover {
 }
 
 #hero {
-    width: 100vw;             
-    height: 25vh;               
+    width: 100vw;
+    height: 25vh;                
     background: url("images/cc0.png") center/cover no-repeat;
     color: white;
     text-align: center;
-    display: flex;             
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
