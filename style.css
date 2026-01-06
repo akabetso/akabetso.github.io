@@ -57,9 +57,9 @@ nav a:hover {
 }
 
 #hero h2 {
+    color: white;   
     font-size: 3rem;
-    color: white;
-    margin: 0 0 0;
+    margin: 0 0 1rem;
 }
 
 section {
