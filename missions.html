@@ -35,38 +35,64 @@
             <p class="profile-title">Computational Biologist</p>
         </div>
 
-        <ul class="nav-menu">
+        <!-- <ul class="nav-menu">
             <li class="nav-item">
                 <a href="#all-projects" class="nav-link active">
                     <span class="nav-icon">📂</span>
                     Machine Learing
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#web-dev" class="nav-link">
-                    <span class="nav-icon">🌐</span>
-                    Multi-omics
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#mobile" class="nav-link">
-                    <span class="nav-icon">📱</span>
-                    Proteomics
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#ai-ml" class="nav-link">
-                    <span class="nav-icon">🤖</span>
-                    Molecular Dynamics
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#open-source" class="nav-link">
-                    <span class="nav-icon">⭐</span>
-                    In Silico peptides optimisation
-                </a>
-            </li>
-        </ul>
+ -->
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <!-- <li class="nav-item has-submenu">
+                    <a href="#" class="nav-link"><i class="fas fa-cogs"></i> Machine Learning</a>
+                    <ul class="submenu">
+                        <li class="submenu-item">
+                            <a href="kge.html" class="submenu-link"><i class="fas fa-mobile-alt"></i> KGE</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a href="cnn.html" class="submenu-link"><i class="fas fa-chart-line"></i> CNN</a>
+                        </li>
+                    </ul>
+                </li> -->
+                <li class="nav-item has-submenu">
+                    <a href="#" class="nav-link"><i class="fas fa-cogs"></i> Machine Learning</a>
+                    <ul class="submenu">
+                        <li class="submenu-item">
+                            <a href="#" class="submenu-link" onclick="loadPage('kge.html')">
+                            <i class="fas fa-mobile-alt"></i> KGE
+                        </a>
+                        </li>
+                        <li class="submenu-item">
+                            <a href="#" class="submenu-link" onclick="loadPage('cnn.html')">
+                                <i class="fas fa-chart-line"></i> CNN
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#web-dev" class="nav-link">
+                        <span class="nav-icon"></span>
+                        Multi-omics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#mobile" class="nav-link">
+                        <span class="nav-icon"></span>
+                        Proteomics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#ai-ml" class="nav-link"><i class="fas fa-mobile-alt"></i> Molecular Dynamics</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#open-source" class="nav-link"><i class="fas fa-envelope"></i> Silico peptides optimisation</a>
+                </li>
+            </ul>
+        </nav>
 
         <div class="social-links">
             <a href="https://github.com/akabetso" class="social-link" title="GitHub">
@@ -87,15 +113,15 @@
         </div>
     </aside>
 
-    <main class="main-content">
+    <!-- <main class="main-content">
         <h1>Missions potfolio</h1>
 
-        <!-- Your project content goes here -->
-    </main>
+        
+    </main> -->
 
-    <footer>
-        <p>&copy; 2025 Desmond Akabetso Nde. All rights reserved.</p>
-    </footer>
+    <main class="main-content">
+        <iframe id="content-frame" src="default-content.html"></iframe>
+    </main>
 
     <script>
         function toggleSidebar() {
@@ -107,12 +133,18 @@
             overlay.classList.toggle('active');
             toggle.classList.toggle('active');
         }
+        function loadPage(page) {
+            document.getElementById('content-frame').src = page;
+        }
 
         // Active link functionality
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
+                // Only remove active class from non-submenu items
+                if (!this.closest('.has-submenu') || window.innerWidth <= 768) {
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
                 
                 // Close sidebar on mobile after clicking
                 if (window.innerWidth <= 768) {
@@ -120,6 +152,39 @@
                 }
             });
         });
+
+        // Get all menu items with submenus
+        const hasSubmenu = document.querySelectorAll('.has-submenu');
+
+        // Add event listeners for each item with submenu
+        hasSubmenu.forEach(item => {
+            // For desktop: show submenu on hover
+            item.addEventListener('mouseenter', () => {
+                if (window.innerWidth > 768) {
+                    // closeAllSubmenus(); // Optional: if you want only one open at a time
+                    item.querySelector('.submenu').classList.add('active');
+                    item.classList.add('active');
+                }
+            });
+            
+            // For desktop: hide submenu when mouse leaves
+            item.addEventListener('mouseleave', () => {
+                if (window.innerWidth > 768) {
+                    item.querySelector('.submenu').classList.remove('active');
+                    item.classList.remove('active');
+                }
+            });
+        });
+
+        // Function to close all submenus
+        function closeAllSubmenus() {
+            document.querySelectorAll('.submenu').forEach(sub => {
+                sub.classList.remove('active');
+            });
+            document.querySelectorAll('.has-submenu').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
     </script>
 </body>
 </html>
