@@ -1,72 +1,151 @@
 name: Deploy to GitHub Pages
 
-# When should this pipeline run?
 on:
   push:
-    branches: [ main ]  # When you push to main branch
-  workflow_dispatch:     # Allow manual trigger from GitHub UI
+    branches: [ main ]
+  workflow_dispatch:
 
-# Permissions needed for GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Only one deployment at a time
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # JOB 1: Build and Test
-  build:
+  # JOB 1: Strict Quality Checks
+  quality-checks:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Download your code from GitHub
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Install tools to check HTML files
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install HTML validator
-        run: npm install -g html-validate
-
-      # Step 3: Check your HTML files for errors
-      # (ann.html, index.html, etc.)
-      - name: Validate HTML files
+      - name: Install validation tools
         run: |
-          echo "🔍 Validating HTML files..."
+          npm install -g html-validate
+          npm install -g htmlhint
+
+      - name: Validate HTML with html-validate (STRICT)
+        run: |
+          echo "🔍 Running HTML validation (html-validate)..."
+          html_errors=0
           for file in *.html; do
             if [ -f "$file" ]; then
               echo "Checking $file"
-              html-validate "$file" || echo "⚠️  Warning: $file has validation issues"
+              if ! html-validate "$file"; then
+                html_errors=1
+              fi
             fi
           done
-        continue-on-error: true
+          if [ $html_errors -eq 1 ]; then
+            echo "❌ HTML validation failed!"
+            exit 1
+          fi
+          echo "✅ All HTML files are valid"
 
-      # Step 4: Check if images exist
-      # (checks images_ann/*.png, etc.)
-      - name: Check for missing images
+      - name: Validate HTML with htmlhint (STRICT)
+        run: |
+          echo "🔍 Running HTML validation (htmlhint)..."
+          htmlhint *.html
+
+      - name: Check for missing images (STRICT)
         run: |
           echo "🔍 Checking for missing images..."
-          grep -r 'src="' *.html | grep -o 'src="[^"]*"' | sed 's/src="//;s/"//' | while read img; do
-            if [[ "$img" != http* ]] && [ ! -f "$img" ]; then
-              echo "⚠️  Warning: Missing image - $img"
+          missing_files=0
+          
+          # Find all image references in HTML files
+          for file in *.html; do
+            if [ -f "$file" ]; then
+              echo "Checking images in $file..."
+              
+              # Extract src attributes
+              grep -oP 'src="\K[^"]+' "$file" 2>/dev/null | while read -r src; do
+                # Skip external URLs
+                if [[ "$src" =~ ^https?:// ]]; then
+                  continue
+                fi
+                
+                # Check if file exists
+                if [ ! -f "$src" ]; then
+                  echo "❌ Missing file: $src (referenced in $file)"
+                  missing_files=1
+                fi
+              done
             fi
           done
-        continue-on-error: true
+          
+          # Also check CSS files for missing images
+          for file in *.css; do
+            if [ -f "$file" ]; then
+              echo "Checking images in $file..."
+              grep -oP 'url\(\K[^)]+' "$file" 2>/dev/null | tr -d "\"'" | while read -r src; do
+                if [[ "$src" =~ ^https?:// ]]; then
+                  continue
+                fi
+                if [ ! -f "$src" ]; then
+                  echo "❌ Missing file: $src (referenced in $file)"
+                  missing_files=1
+                fi
+              done
+            fi
+          done
+          
+          if [ $missing_files -eq 1 ]; then
+            echo "❌ Some referenced files are missing!"
+            exit 1
+          fi
+          
+          echo "✅ All referenced files exist"
 
-      # Step 5: List what will be deployed
-      - name: Show deployment contents
+      - name: Check for broken internal links (STRICT)
         run: |
-          echo "📦 Files to be deployed:"
-          ls -la
+          echo "🔍 Checking for broken internal links..."
+          broken_links=0
+          
+          for file in *.html; do
+            if [ -f "$file" ]; then
+              echo "Checking links in $file..."
+              
+              # Extract href attributes (excluding external URLs and anchors)
+              grep -oP 'href="\K[^"]+' "$file" 2>/dev/null | while read -r href; do
+                # Skip external URLs
+                if [[ "$href" =~ ^https?:// ]] || [[ "$href" =~ ^mailto: ]] || [[ "$href" =~ ^# ]]; then
+                  continue
+                fi
+                
+                # Remove anchor from link
+                clean_href=$(echo "$href" | cut -d'#' -f1)
+                
+                if [ -n "$clean_href" ] && [ ! -f "$clean_href" ]; then
+                  echo "❌ Broken link: $href (in $file)"
+                  broken_links=1
+                fi
+              done
+            fi
+          done
+          
+          if [ $broken_links -eq 1 ]; then
+            echo "❌ Some links are broken!"
+            exit 1
+          fi
+          
+          echo "✅ All internal links are valid"
 
-      # Step 6: Prepare files for deployment
+  # JOB 2: Build (only runs if quality-checks pass)
+  build:
+    runs-on: ubuntu-latest
+    needs: quality-checks
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
@@ -75,13 +154,13 @@ jobs:
         with:
           path: '.'
 
-  # JOB 2: Deploy (only runs if build succeeds)
+  # JOB 3: Deploy (only runs if build passes)
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build  # Wait for build job to finish
+    needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Deploy to GitHub Pages

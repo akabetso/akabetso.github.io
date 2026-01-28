@@ -14,6 +14,9 @@
         h1 { color: #2c3e50; margin-bottom: 0.25rem}
         h2 { color: #2c3e50; padding: 2rem 3rem 0; font-size: 2rem; margin-bottom: 0rem;}
         h3 { color: #2c3e50; padding: 2rem 3rem 0; font-size: 1.5rem; margin-bottom: 0rem;}
+        .indented {
+            padding-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -117,15 +120,15 @@
         all ranked predictions of a model, it is possible to define three different performance indexes:
         Hits@K, MR, and MRR. (Z. Chen et al., 2020)</p>
 
-    <p style="padding-left: 20px;"><strong>Hits@K</strong> or in short, H@K, is a performance index that measures the probability to find the correct 
+    <p class="indented"><strong>Hits@K</strong> or in short, H@K, is a performance index that measures the probability to find the correct 
         prediction in the first top K model predictions. Usually, it is used <code>k = 10</code>. Hits@K 
         reflects the accuracy of an embedding model to predict the relation between two given triples 
         correctly</p>
 
-    <p style="padding-left: 20px;"><strong>Mean rank</strong> is the average ranking position of the items predicted by the model among all the 
+    <p class="indented"><strong>Mean rank</strong> is the average ranking position of the items predicted by the model among all the 
         possible items.</p>
 
-    <p style="padding-left: 20px;"><strong>Mean reciprocal rank</strong> measures the number of triples predicted correctly. If the first predicted 
+    <p class="indented"><strong>Mean reciprocal rank</strong> measures the number of triples predicted correctly. If the first predicted 
         triple is correct, then 1 is added, if the second is correct 1/2 is summed, and so on. Mean 
         reciprocal rank is generally used to quantify the effect of search algorithms. The larger the index, 
         the better the model.</p>
@@ -138,7 +141,7 @@
         We can not tell what they do but they are known to have physical contact with other proteins. 
     </p>
 
-    <h3>(2) Cleaning and structuring</h2>
+    <h3>(2) Cleaning and structuring</h3>
     <p>Each interaction was structured as a triple (head, relation, tail), where head and tail entities represent interacting proteins, 
         and the relation type is determined based on the combined score (score from sources - text mining, databases, transfered experiments). 
         This data creates only a mono-relational knowledge graph because information only represents physical contact observation.</p>
@@ -172,7 +175,7 @@
     <p><strong>Word2Vec</strong> In a nutshell, uses the power of a simple Neural Network to generate word embeddings. It is said to be contextually aware
         over TF-IDF</p>
     <p><strong>GloVe</strong> which stands for Global Vectors for word representation works like Word2Vec, created for contextual word embedding 
-        but works on performance over Word2Vec. read more <a href="https://neptune.ai/blog/vectorization-techniques-in-nlp-guide" target="_blank">here</a></p></p>
+        but works on performance over Word2Vec. read more <a href="https://neptune.ai/blog/vectorization-techniques-in-nlp-guide" target="_blank">here</a></p>
     
     <p class="spacing-md"></p> 
 
@@ -288,10 +291,10 @@
     <p class="spacing-md"></p>
 
     <h3>References</h3>
-    <p>Gema, Aryo Pradipta et al. “Knowledge graph embeddings in the biomedical domain: are they useful? A look at link prediction, rule learning, and 
-        downstream polypharmacy tasks.” Bioinformatics advances vol. 4,1 vbae097. 17 Jul. 2024, doi:10.1093/bioadv/vbae097</p>
+    <p>Gema, Aryo Pradipta et al. "Knowledge graph embeddings in the biomedical domain: are they useful? A look at link prediction, rule learning, and 
+        downstream polypharmacy tasks." Bioinformatics advances vol. 4,1 vbae097. 17 Jul. 2024, doi:10.1093/bioadv/vbae097</p>
     <p class="spacing-md"></p>
-    <p>Nunes, Susana et al. “Multi-domain knowledge graph embeddings for gene-disease association prediction.” Journal of biomedical 
+    <p>Nunes, Susana et al. "Multi-domain knowledge graph embeddings for gene-disease association prediction." Journal of biomedical 
         semantics vol. 14,1 11. 14 Aug. 2023, doi:10.1186/s13326-023-00291-x</p>
     <p class="spacing-md"></p>
     <p>Rossi, Andrea, et al. "Knowledge Graph Embedding for Link Prediction: A Comparative Analysis." ACM Transactions on Knowledge Discovery 
