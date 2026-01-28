@@ -1,0 +1,94 @@
+name: Deploy to GitHub Pages
+
+# When should this pipeline run?
+on:
+  push:
+    branches: [ main ]  # When you push to main branch
+  workflow_dispatch:     # Allow manual trigger from GitHub UI
+
+# Permissions needed for GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment at a time
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # JOB 1: Build and Test
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Download your code from GitHub
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Install tools to check HTML files
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install HTML validator
+        run: npm install -g html-validate
+
+      # Step 3: Check your HTML files for errors
+      # (ann.html, index.html, etc.)
+      - name: Validate HTML files
+        run: |
+          echo "🔍 Validating HTML files..."
+          for file in *.html; do
+            if [ -f "$file" ]; then
+              echo "Checking $file"
+              html-validate "$file" || echo "⚠️  Warning: $file has validation issues"
+            fi
+          done
+        continue-on-error: true
+
+      # Step 4: Check if images exist
+      # (checks images_ann/*.png, etc.)
+      - name: Check for missing images
+        run: |
+          echo "🔍 Checking for missing images..."
+          grep -r 'src="' *.html | grep -o 'src="[^"]*"' | sed 's/src="//;s/"//' | while read img; do
+            if [[ "$img" != http* ]] && [ ! -f "$img" ]; then
+              echo "⚠️  Warning: Missing image - $img"
+            fi
+          done
+        continue-on-error: true
+
+      # Step 5: List what will be deployed
+      - name: Show deployment contents
+        run: |
+          echo "📦 Files to be deployed:"
+          ls -la
+
+      # Step 6: Prepare files for deployment
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+  # JOB 2: Deploy (only runs if build succeeds)
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build  # Wait for build job to finish
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Deployment complete
+        run: |
+          echo "✅ Site deployed successfully!"
+          echo "🌐 URL: ${{ steps.deployment.outputs.page_url }}"
