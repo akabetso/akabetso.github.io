@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NN</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ann.css">
+    <style>
+        body {
+            padding: 2rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        h1 { color: #2c3e50; margin-bottom: 0.25rem}
+        h2 { color: #2c3e50; padding: 2rem 3rem 0; font-size: 2rem; margin-bottom: 0rem;}
+        h3 { color: #2c3e50; padding: 2rem 3rem 0; font-size: 1.5rem; margin-bottom: 0rem;}
+    </style>
+</head>
+<body>
+    <h1>Neural networks for biotype and subcellular classification</h1>
+    <p>In this study, the researcher aims to further investigate cell populations from single-cell analyis using 
+        microscpy techniques without breaking the cells. For this, there's the need to define markers specific for 
+        each cell populations localized in the cell membrane. From this, I designed a pipline establishing candidates
+        markers to predictiong their subcellular localizations. Already, databases like Uniprot has curated and 
+        non curated sub-cellular localizations of many proteins. most of this proteins can be querried from there 
+        to get their subcellular localizations which is a very simple pipeline and was executed successfully. At the side,
+        I decided to couple machine learning to this pipeline which to me adds the niche of learning how to couple a 
+        machine learning pipeline to an existing pipeline in this case single-cells and secondly to predict the positions of novel
+        transcripts which are not well defined in the literature. Besides not all proteins have been properly 
+        defined in literature.</p>
+
+    <h2>Workflow :</h2>
+    <p>> Establish candidates genes</p>
+    <p>> Biotype predictability</p>
+    <p>> Subcellular localization predictitability</p>
+    <p>> Evaluation</p>
+    <p>> Pipeline integraiton (perspective)</p>
+
+    <h2>Brief introduciton to neural networks</h2>
+    <h3>Introduction</h3>
+    <p>Neural Networks or Artificial Neural Networks (ANNs) in this context are among the most fundamental techniques within the
+    field of Artificial Intelligence. Their operation loosely emulates the functioning of the human brain, but the value of an 
+    ANN extends well beyond its role as a biological model. An ANN can both memorize and reason: it provides a way in which a 
+    computer can learn from scratch about a previously unseen problem (Hugh Cartwright, 2015).</p>
+
+    <p class="spacing-md"></p> 
+    <p><a href="https://link.springer.com/book/10.1007/978-1-4939-2239-0" target="_blank">Cartwright</a> describes some productive and 
+        fascinating examples of how ANNs are applied in the biological sciences and 
+        related areas: from the analysis of intracellular sorting information to the prediction of the behavior of bacterial 
+        communities; from biometric authentication to studies of tuberculosis; from studies of gene signatures in breast cancer
+        classification to the use of mass spectrometry in metabolite identification; from visual navigation to computer 
+        diagnosis of possible lesions; and more</p>
+    
+    <p class="spacing-md"></p> 
+    <p>According to <a href="https://doi.org/10.1067/msy.2000.102173" target="_blank">Drew et al.,</a> Artificial neural networks (ANNs) 
+        have received particular attention because of their ability to analyze complex nonlinear data sets partly because 
+        many clinical scenarios cannot be predicted by a single parameter, but rely on the complex interplay of many 
+        clinicopathologic factors. <a href="https://doi.org/10.1016/j.ajodo.2023.11.003" target="_blank">Geubbelmans et al., 2024</a> 
+        equally argues that,
+        specialist can derive informative features (variables) from a complex dataset which requires a lot of domain knowledge and 
+        expertise. ANN methods are also able to learn from the data and derive important features without interference from a human.</p>
+
+    <p class="spacing-md"></p> 
+    <p>Machine learning will generally fall under supervised and non supervised learning. this study is focused on supervised learning
+        because patterns are generated from literature knowledge. Fig 1 summarises ANNs to their simplest form. Input data (x0, x1, x2,…) 
+        are transformed via weights (w0, w1, w2,…), weights carry the learnable parameters or coefficients that defines the output. 
+        in other words, weights tells us how much output (y) changes given input (x) and b controls the output. for exemple, given x = 0, 
+        y takes the position of b. so b can be used to increase or decrease the output. an argument of an activation function f() 
+        to generate output. </p>
+
+    <div class="centered-image">
+        <img src="images_ann/perceptron.png" alt="models" class="elegant-image"></div>
+    
+    <p><strong>Fig 1.</strong> Neurobiology representation of a single layer ann. Printed from Geubbelmans et al.</p>
+
+    <h3>Activation function</h3>
+    <p>Activation functions are used to generate a non linear output. Just like the brain neurons, the input weights are summed
+        and threshold is controled by b which which is used by the activation function to provide a reliable output. Activation functions
+        play pivotal roles like suppressing negative values, providing a binary outpur or non binary output. Fig 2 summarises the 
+        most porpular activation functions.
+    </p>
+
+    <div class="centered-image">
+        <img src="images_ann/act_fun.png" alt="models" class="elegant-image"></div>
+
+    <p><strong>Fig 2.</strong> Porpular activation functions. Printed from Geubbelmans et al.</p>
+
+    <h3>Perceptrons</h3>
+    <p>As the brain has billions of neurons and trillions of synapses, so does the ANN has perceptrons. the description we saw 
+        above is a single layer neural network, a perceptron can have many layers stacked together to create space to hold hundreds
+        to billions of weights depending on the sophisticatedness of the inputs data. A single perceptron is a basic ML unit, while 
+        multiple layers of interconnected perceptrons create Deep Learning architectures.</p>
+
+    <p>During traing, the networks are improved by comparing the predictions with the correct values of the training data, and a measure of  
+        the amount of mismatch is computed. Then, the weights of the network are updated though backpropagation in such a way that this mismatch 
+        is reduced. After several iterations of these steps, the networks learns to predict with low mismatch.</p>
+
+    <div class="centered-image">
+        <img src="images_ann/perceptrons.png" alt="models" class="elegant-image"></div>     
+        
+    <p><strong>Fig 3.</strong> Perceptrons or multilayer perceptron. Printed from Geubbelmans et al.</p>
+
+    <h2>Biotype and Subcellular Classification</h2>
+
+    <p>The first thing I did here was to identify candidate cell-type markers. This was done by using the find all makerker function in seurat, 
+        after which I used a stringent threshold to keep markers specific only to each cell-type porpulation (marker specificity). 
+        Standard single-cell RNA-seq library preparation methods (like 3' or 5' counting) are designed to capture polyadenylated transcripts
+        which include mRNA and long non coding RNAs. During aliment and quantification in the single-cell preprocessing 
+        pipeline, reads are attributed to genes and some of these genes can be coding or non coding. The first step lies here! Predicting 
+        if the candidate genes are coding or non coding (biotype). Many databases has this information already but cannot tell from novel 
+        transcripts for exemple. Fig 4 shows candidates and targets genes before and after respectively.</p>
+
+    <div class="centered-image">
+        <img src="images_ann/act_fun.png" alt="models" class="elegant-image"></div>  
+    
+    <p><strong>Fig 4.</strong> Candidate and Target genes</p>
+
+    <h2>Biotype predictability</h2>
+    <h3>Find target marker genes</h3>
+    <p>After transfering the target marker genes to the new environment, I decided to let the neural network learn pattern recorgnition
+        from the genomic sequences of each genes. So using NCBI API, I querried each gene to get it's geneomic sequence fasta file and 
+        later combined them in a python list for each of the two condition. While fetching for this information, I made sure I downloaded 
+        only genes that were curatedly 
+        annotated as coding or non-coding genes. Generally, coding and non-coding sequences display different sequence patterns like start/stop 
+        codons and reading frame consistency in coding regions, versus promoter motifs, splice signals, or regulatory elements in non-coding 
+        regions. This are the patterns that will be picked up by the neural network as I push them to differentiate between coding and non-coding 
+        by showing it a protein-coding gene and non-coding gene over many itterations. So it learns to find what is unique between coding and 
+        non-coding.</p>
+
+    <p class="spacing-md"></p> 
+    <h3>Genomic Tokenization via K‑mer Decomposition and Vocabulary Building</h3>
+    <p>Now that I have my fasta sequences well ordered, I need to convert them from ATGC to vectors. Based on existing literature, 
+        NLP embedding methods—originally designed to capture semantic meaning, context, and positional information in text—are proving highly 
+        effective when applied to genomic sequences, where they can model structural, contextual, and positional patterns in DNA. I used a 
+        k‑mer tokenization approach, constructing a vocabulary from 9‑mers. The choice of *k*=9 was optimized by starting with 3‑mers and 
+        systematically increasing *k* until the neural network achieved the best predictive performance on the test dataset. I found that 
+        redundant and non-redundant kmers have similar predictive performance so I eliminated redundancy to enhance computational effeciency.
+        What I mean by redundancy here is that the positional sequences between the kmers are not repeated. take for example a first 9mer 
+        starting at postition 1, the second 9mer follows at position 10 instead of position 2 of the DNA sequence. For computational 
+        efficiency higher predictive performance, it was better to priritize gene sequences between 100 and 3500 DNA sequence long. </p>
+    
+    <h3>Embedding Model Architecture in PyTorch</h3>
+    <p>I used a token embedding layer that converts each integer-encoded k‑mer into a dense vector of dimension 64. For sequences with 
+        variable lengths, padding tokens were masked and excluded during averaging. Positional embeddings were optionally added when a 
+        maximum sequence length was specified, allowing the model to learn token order. The embedded sequences were then pooled by averaging 
+        the non‑padded tokens into a fixed‑size vector, which was passed through a three‑layer feed‑forward network with ReLU activations and 
+        dropout for classification.</p>
+
+</body>
+</html>
