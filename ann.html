@@ -110,7 +110,7 @@
         transcripts for exemple. Fig 4 shows candidates and targets genes before and after respectively.</p>
 
     <div class="centered-image">
-        <img src="images_ann/act_fun.png" alt="models" class="elegant-image"></div>  
+        <img src="images_ann/candit_markers.png" alt="models" class="elegant-image"></div>  
     
     <p><strong>Fig 4.</strong> Candidate and Target genes</p>
 
@@ -145,5 +145,49 @@
         the non‑padded tokens into a fixed‑size vector, which was passed through a three‑layer feed‑forward network with ReLU activations and 
         dropout for classification.</p>
 
+    <h3>Training and Evaluation</h3>
+    <p>During training, the training loop iterates for a specified number of epochs. In each epoch, batches of data are passed through the model. 
+        For every batch, predictions and the corresponding loss are computed with pytorch's binary loss function, gradients are backpropagated, 
+        and the model's parameters are updated via the pytorch adams optimizer function.</p>
+
+    <p class="spacing-md"></p> 
+    <p>Evaluation was done by observing the square root distance between unseen data during training and predicted results, the specificy of the 
+        model in predicting true biotypes was greater than 96% after optimization of learning rates, number of epochs and switching fro SGD to Adam 
+        optimizer. Equally the results was confirmed with reference information from literature (ensembl) and the predictions were accurate.</p>
+
+    <h2>Membrane Localization Predictability</h2>
+    <h3>Data sourcing and downstram analysis</h3>
+    <p>Building on the single-cell analysis, genes identified as markers and possessing protein-coding biotypes served as the starting point for 
+        predicting subcellular localization. While amino acid sequences are the direct determinants of protein location, I opted to use their corresponding 
+        genomic DNA sequences as model input. This choice was made to enhance the model's ability to recognize broader sequence patterns—such as alleles, 
+        splice isoforms, and regulatory motifs—that are implicated in membrane targeting and are efficiently captured at the nucleotide level.</p>
+    
+    <p class="spacing-md"></p> 
+    <p>For supervised learning, curated subcellular localization annotations, with a focus on membrane compartments, were retrieved for the corresponding 
+        proteins via the UniProt API. These labels were integrated with the genomic sequences, after which the complete dataset was shuffled and partitioned 
+        into training, validation, and test sets</p>
+
+    <p class="spacing-md"></p> 
+    <p>The model architecture from the biotype prediction task was repurposed for this objective. However, to accommodate the multi-class nature of subcellular 
+        localization prediction, key modifications were implemented: the binary cross-entropy loss function was replaced with a categorical cross-entropy loss, 
+        and the learning rate and number of training epochs were re-optimized</p>
+
+    <p class="spacing-md"></p> 
+    <p>Model performance was rigorously evaluated on the held-out test dataset. The classifier demonstrated high specificity in predicting membrane localization categories. 
+        Predictive accuracy was further validated against a small, independent set of well-characterized membrane protein sequences from the literature, where the model 
+        achieved 100% concordance with known localizations.</p>
+    <p class="spacing-md"></p>
+
+    <p><strong>This work is designed and realised by Desmond Akabetso Nde, August 2025.</strong></p>
+
+    <p class="spacing-md"></p>
+
+    <h3>References</h3>
+    <p>Drew PJ, Monson JR. Artificial neural networks. Surgery. 2000 Jan;127(1):3-11. doi: 10.1067/msy.2000.102173. PMID: 10660751.</p>
+    <p class="spacing-md"></p>
+    <p>Geubbelmans M, Rousseau AJ, Burzykowski T, Valkenborg D. Artificial neural networks and deep learning. Am J Orthod Dentofacial Orthop. 2024 Feb;165(2):248-251. 
+        doi: 10.1016/j.ajodo.2023.11.003. PMID: 38302219.</p>
+    <p class="spacing-md"></p>
+    <p>Hugh Cartwright : https://link.springer.com/book/10.1007/978-1-4939-2239-0</p>
 </body>
 </html>
