@@ -49,15 +49,84 @@
             combines gnotobiology, genetics, and functional genomics, utilizing model organisms colonized with defined bacterial communities, 
             followed by sequencing and bioinformatic analysis.</p>
 
-        <p><strong>Brief introduction to single-cell workflow</strong></p>
+        <p><strong>Brief introduction to single-cell resolution exploratory analysis</strong></p>
 
+        <p>There are many sequencing technologies available for single-cell studies, with 10X Genomics and Parse Biosciences being among the 
+            most prominent platforms. Library preparation methods vary depending on the technology used, but they all fundamentally rely on 
+            cell isolation, barcoding, and sequencing. Depending on the depth and scope of the study, samples can be multiplexed, which must 
+            be carefully considered during preprocessing and analysis to ensure accurate quantitative read distribution and attribution. 
+            I have designed a workflow summarized in Figure 1 that captures the key components and analytical environments surrounding 
+            single-cell resolution studies.</p>
+
+        <p class="spacing-md"></p>
         <div class="centered-image">
             <img src="images_bioinfo/broad-sc.png" alt="Database Method" class="elegant-image">
         </div>
         <p><strong>Fig 1.</strong> Exploratory analysis at single cell resolution level.</p>
 
+        <p class="spacing-md"></p>
+        <p><strong>scRNA-Seq Workflow:</strong></p>
+        <p>Single-cell RNA sequencing begins with tissue dissociation or environmental sample processing to obtain a single-cell suspension. 
+            Cells are isolated using methods such as FACS, laser capture microdissection, or microfluidic platforms. Following RNA extraction 
+            and library preparation, high-throughput sequencing generates transcriptomic profiles for individual cells.</p>
 
+        <p class="spacing-md"></p>
+        <p>The preprocessed data undergoes quality control and normalization, followed by dimensionality reduction techniques (UMAP, t-SNE) to 
+            visualize cellular heterogeneity. Gene regulatory network (GRN) reconstruction identifies regulons—sets of co-regulated genes 
+            controlled by shared transcription factors. Trajectory analysis and lineage tracing reveal developmental paths and cell state 
+            transitions. Clustering algorithms group cells into distinct populations based on gene expression signatures, enabling the 
+            identification of cell types, rare populations, and transitional states.</p>
+
+        <p class="spacing-md"></p>
+        <p><strong>scATAC-Seq Workflow:</strong></p>
+        <p>Single-cell ATAC sequencing maps chromatin accessibility landscapes at single-cell resolution. After cell isolation and nuclei extraction, 
+            the ATAC-seq protocol identifies open chromatin regions genome-wide through transposase-mediated fragmentation.</p>
+
+        <p class="spacing-md"></p>
+        <p>Computational analysis identifies accessible peaks and performs regulatory motif enrichment analysis to determine which 
+            transcription factors are likely active in each cell. Integration with gene expression data reveals correlations between 
+            chromatin accessibility and transcriptional activity. Marker accessibility analysis identifies cell-type-specific regulatory 
+            elements, while chromatin potential modeling predicts regulatory states that govern cell identity and differentiation trajectories.</p>
+
+        <p class="spacing-md"></p>
+        <p><strong>Spatial Transcriptomics with scRNA-Seq Label Transfer</strong></p>
+        <p>Spatial Transcriptomics can broadly be defined under two mainstreams : Sequenced-based methods and Imaged-based / Deconvolution methods. 
+            
+            <div class="sub_project-details">
+                <p><strong>Sequenced-based methods</strong> captures mRNA directly from tissue sections with spatial barcoding. methods likely
+                Visium, Slide_seq, Sterio-seq, PIXEL-seq provides clean workflow for library preparations. Transcriptome-wide coverage is 
+                unbiased but also accounts for lower spatial resolution.</p>
+
+                <p class="spacing-md"></p>
+                <p><strong>Imaging-based methods</strong> are great for in situ hybridiation approaches with methods like MERFISH, Merscope, Xenium, osmFISH, 
+                seqFISH as well as in situ sequencing with methods like FISSEQ, STARmap. other methods include antibody-based detection.
+                Overal, Spatial transcriptomics should account for spatial gradients, spatial heterogeneity, cellular communication, tissue architecture, 
+                and function. Be careful of bias due to unaccounted tissue thickness.</p>
+            </div>
+
+            <p>Spatial transcriptomics captures gene expression profiles while preserving the native tissue architecture. Following tissue sectioning 
+            and spatial barcoding, sequencing generates spatially-resolved transcriptomic data.</p>
+
+        <p class="spacing-md"></p>
+        <p>Label transfer from scRNA-seq reference datasets annotates spatial spots with cell type identities and states previously defined 
+            through single-cell analysis. This integration enables spatiotemporal gene expression analysis, revealing how gene expression 
+            varies across tissue regions and potentially over developmental or disease progression timelines. Spatial distribution mapping 
+            visualizes cell type localization, cellular neighborhoods, and tissue organization patterns, providing insights into cell-cell 
+            interactions and microenvironmental influences on cellular behavior.</p>
+        
+        <p class="spacing-md"></p>
     </div>
+
+    <div class="project-intro">
+        <p><strong>In our study</strong>, we adapted this analytical pipeline into a differential exploratory framework. This approach allowed us to systematically 
+            probe each experimental condition to identify the core cellular niches driving their distinct biology.  </p>
+        <p>In an evolutionary-developmental (Evo-Devo) context, the analysis pinpointed a specific niche at the neck-trunk interface. 
+            This supports the hypothesis of a cervico-thoracic transition zone and illuminates the specific progenitor populations involved in 
+            limb bud formation from both anatomical regions.</p>
+        <p>In the study of stunting, the analysis revealed which specific cell populations are dysregulated by malnutrition and delineated the 
+            trajectory of their functional impairment over developmental time.</p>
+    </div>
+
 
     <p class="spacing-md"></p>
     <div class="social-links">
