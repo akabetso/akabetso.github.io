@@ -21,7 +21,7 @@
     <p><strong>Summary of projects :</strong></p>
     <div class="project-intro">
         <p>Single-Cell RNA-Seq</p>
-        <p>Atac-Seq</p>
+        <p>ATAC-Seq</p>
         <p>ChIP-Seq</p>
         <p>Bulk RNA-Seq</p>
         <p>Proteomics</p>
@@ -65,7 +65,7 @@
         <p><strong>Fig 1.</strong> Exploratory analysis at single cell resolution level.</p>
 
         <p class="spacing-md"></p>
-        <p><strong>scRNA-Seq Workflow:</strong></p>
+        <p><strong>scRNA-Seq :</strong></p>
         <p>Single-cell RNA sequencing begins with tissue dissociation or environmental sample processing to obtain a single-cell suspension. 
             Cells are isolated using methods such as FACS, laser capture microdissection, or microfluidic platforms. Following RNA extraction 
             and library preparation, high-throughput sequencing generates transcriptomic profiles for individual cells.</p>
@@ -78,7 +78,7 @@
             identification of cell types, rare populations, and transitional states.</p>
 
         <p class="spacing-md"></p>
-        <p><strong>scATAC-Seq Workflow:</strong></p>
+        <p><strong>scATAC-Seq :</strong></p>
         <p>Single-cell ATAC sequencing maps chromatin accessibility landscapes at single-cell resolution. After cell isolation and nuclei extraction, 
             the ATAC-seq protocol identifies open chromatin regions genome-wide through transposase-mediated fragmentation.</p>
 
@@ -89,7 +89,7 @@
             elements, while chromatin potential modeling predicts regulatory states that govern cell identity and differentiation trajectories.</p>
 
         <p class="spacing-md"></p>
-        <p><strong>Spatial Transcriptomics with scRNA-Seq Label Transfer</strong></p>
+        <p><strong>Spatial Transcriptomics :</strong></p>
         <p>Spatial Transcriptomics can broadly be defined under two mainstreams : Sequenced-based methods and Imaged-based / Deconvolution methods. 
             
             <div class="sub_project-details">
@@ -118,7 +118,7 @@
     </div>
 
     <div class="project-intro">
-        <p><strong>In our study</strong>, we adapted this analytical pipeline into a differential exploratory framework. This approach allowed us to systematically 
+        <p><strong>In our study</strong>, we adapted these analytical pipelines into a differential exploratory framework. This approach allowed us to systematically 
             probe each experimental condition to identify the core cellular niches driving their distinct biology.  </p>
         <p>In an evolutionary-developmental (Evo-Devo) context, the analysis pinpointed a specific niche at the neck-trunk interface. 
             This supports the hypothesis of a cervico-thoracic transition zone and illuminates the specific progenitor populations involved in 
@@ -127,8 +127,72 @@
             trajectory of their functional impairment over developmental time.</p>
     </div>
 
+    <h3>Chromatin accessibility profiling by ATAC-seq :</h3>
+    <p>The assay for transposase-accessible chromatin using sequencing (ATAC-seq) provides a simple and scalable way to detect the unique 
+        chromatin landscape associated with a cell type and how it may be altered by perturbation or disease. It appears more and more in epigenetics 
+        studies. ATAC-Seq captures the accessibility of genomic areas in the chromosome which provides some robustness in defining the environment
+        surrounding transcription start side.</p>
+    
+    <p class="spacing-md"></p>
+    <div class="centered-image">
+        <img src="images_bioinfo/atac-seq.png" alt="Database Method" class="elegant-image"></div>
+    <p><strong>Fig 2.</strong> Brief description of ATAC=Seq. Modified and printed from Grandi F et al., 2022</p>
+   
+    <p class="spacing-md"></p>
+    <p>Chromatin structure is maintainded along side associated DNA binding proteins from nuclei isolation. It is exposed to the Tn5 transposase, 
+        simultaneously fragment the chromatin and insert primer sequences enabling amplification of these fragmented reads preparing them for sequencing.
+        After sequencing, bioinformatic pipelines are applied to define the genomic regions accessible by the Tn5. The generally contain shorter reads and 
+        are counted as peaks. Longer reads are classified down the road as mononucleosome, dinucleosome based on the fragment lengths. The example pesented in 
+        cell type x and cell type y contains peaks in the promoter region. We also observe that cell type x has higher levels of expression of gene A, knowing 
+        the role of enhancers, we can hypothesise that the peaks equally observed at enhancer region just above the promoter drives these higer expression of 
+        gene A in cell type x. (Grandi F et al., 2022).</p>
 
     <p class="spacing-md"></p>
+    <p>Thus, combining chromatin accessibility (ATAC-seq peaks) and gene expression data allow to infer functional regulatory logic. The coordinated 
+        openness of the promoter and its putative enhancer in cell type X suggests an active cis-regulatory module driving higher expression of Gene A</p>
+
+    <p class="spacing-md"></p>
+    <p>At the time of these studies (also see below), <strong>the current standards for running a successful ATAC_Seq</strong> pipeline is listed below.</p>
+
+    <p class="spacing-md"></p>
+    <div class="centered-image">
+        <img src="images_bioinfo/atac_standard.png" alt="Database Method" class="elegant-image"></div>
+    <p><strong>Fig 3.</strong> ATAC-Seq current standards. read more 
+        <a href="https://www.encodeproject.org/data-standards/atac-seq/atac-encode4/" target="_blank">here</a></p>
+    
+    <h3>chromatin immunoprecipitation (ChIP) :</h3>
+    <p>In gene regulation studies, ChIP-Seq and ATAC-Seq have some similarities in thier pipeline approaches but their goals are different and using them rely much more on 
+        your research interest. ChIP-seq is a center method used for characterizing genome-wide DNA-binding profile for a protein of interest. It provides a highly specific, 
+        protein-centric view of the regulatory landscape, pinpointing where a particular factor—such as a histone modification or transcription factor—interacts with the genome.
+        The quality of the data generated and also the analytical results is inherently dependent on the availability and quality of specific antibodies for the target protein.</p>
+
+    <div class="centered-image">
+        <img src="images_bioinfo/chip-seq.png" alt="Database Method" class="elegant-image"></div>
+    <p><strong>Fig 4.</strong> ChIP-Seq working pipelines. Printed from Sullivan A et al., 2020 and Nakato R et al., 2021.></p>
+
+    <p class="spacing-md"></p>
+
+    <p>As always, the first step is the library preparation stage begins by preparing samples which are then chemically fixed to preserve their 
+        protein-DNA interactions. Next, the fixed chromatin is physically broken into smaller pieces (sheared). The target protein, along with 
+        the DNA bound to it, is then selectively captured using a specific antibody attached to magnetic beads (immunoprecipitation). The isolated 
+        complexes are washed, eluted, and the DNA is purified. This DNA is then prepared for sequencing through steps such as amplification 
+        and adapter ligation, and is ultimately sequenced.</p>
+    
+    <p class="spacing-md"></p>
+
+    <p>Once sequenced, the raw data undergoes a multi-step computational analysis. First, the sequenced fragments are mapped back to the genome. 
+        The data is then normalized for comparison, and the patterns of where the protein binds are visualized across the genome. Key binding 
+        regions, or "peaks," are identified. These peaks are analyzed to discover common DNA sequence patterns (motifs) and are annotated to 
+        understand the associated chromatin states, such as promoters or enhancers. Finally, groups of genes near these binding sites are 
+        analyzed to determine their biological roles, often revealing involvement in fundamental processes like cell proliferation, growth 
+        regulation, and cell adhesion</p>
+
+    <p class="spacing-md"></p>
+    <p>ChIP-Seq has become a prominent method to analyse genomic interaction of DNA-protein interactions. Researchers can pinpoint precise 
+        genomic binding sites, decipher the DNA codes recognized by proteins, and ultimately link these molecular events to critical biological 
+        functions and regulatory networks within the cell. There are interesting ChIP-Seq data databases that can be explored and integrated 
+        to provide more meaning to your research.</p>
+        
     <div class="social-links">
         <a href="https://github.com/akabetso" class="social-link" title="GitHub">
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
