@@ -116,23 +116,24 @@
             interactions and microenvironmental influences on cellular behavior.</p>
         
         <p class="spacing-md"></p>
-        <p><strong>Custom analysis</strong> </p>
+        <p><strong>Custom Modelling</strong> </p>
         
         <p class="spacing-md"></p>
-        <p>I love to always reserve space for custom analysis because I beleive it is essential for every research work.
+        <p>I love to always reserve space for custom modelling because I beleive it is essential for every research work.
         Today, there exist many high throughput technologies to respond to the challenges in the biological world. Considering a more common framwork where 
         different scientist work on the same subject, it is more prominent for them to always have different perspectives, but the possible approaches to resolve 
-        this problem may generally be limited to the current technologies or the devolloper's approach and hence there's a high probability of expecting the same 
-        results even with different perspectives. To break out of this hook, there's the need to twik and direct the current approaches towards the direction of 
-        the researcher's perspectives.</p>
+        this problem may generally be limited to the current technologies or the devolloper's approach and hence there's a high probability of acheiving the same 
+        results even with different perspectives. To break out of this loop, there's the need to utilize current approaches as stepping stones to model specific 
+        biological phenomens to model niches and responding accordingly to the research perpestives.</p>
 
         <p class="spacing-md"></p>
-        <p>Following this strategy, I have applied two custom analysis in the host-microbe research project. One involved extracting the markers of cell population 
-            of interest and predicting their membrane localization. The other custom pipeline I developed involved the the prediction of proliferation speed because 
-            we noticed some progenitor populations were slowing down in the pipeline from stem cells to progenitors to terminal state cells and we need to know why. 
-            In the custom pipeline, this helped us to quantify and understand the cell proliferation rate, validate the cell states, and also to understrand why some 
-            of the cells where slowing down which induced a new research question to target this effect. In the research team of evo-devo, I developed a custom pipeline
-            which involve the use of machine learnng to capture the biological network of protein-protein interactions. The next step is to combine this weights with 
+        <p>Following this strategy, I have applied two custom approaches in the host-microbe research project. One involved extracting the markers of cell population 
+            of interest and predicting their membrane localization (Here I used established methods for validation, modelled DNA structure to predict patterns specific only
+            to membrane position via neural network). The other custom pipeline I involved the the prediction of proliferation speed. We obseved that some 
+            progenitor populations were slowing down in the small intestines for some conditions.  
+            We dug deeper in the properties of molecules governing cell-cycle life span, applied statistics and neural network extract the cell-cycle proliferation speed
+            and validated with expected results from literature. In the research team of evo-devo, I developed a custom pipeline
+            which involve the use of machine learnng to capture the biological network environment of protein-protein interactions (embeddign space). The next step is to combine this weights with 
             differential gene expression to find the proportions of expression in each conditions driving morhphological interations.</p>
 
         <p class="spacing-md"></p>
@@ -219,6 +220,57 @@
             to provide more meaning to your research.</p>
 
         <h3>Spatial Transcriptomics :</h3>
+        <p>Spatial Transcriptomics today are most useful in the separation of meaningful patterns from complex biological system. Traditional RNA 
+            sequencing list the bricks, single-cell sequencing classifies the bricks and spatial transcriptiomics assembles them. It defines a spatiotemporal
+            settings of molecular signatures within a biological system and enhance the elucidation of their functions. Fig 5 defines the canonical pipelines 
+            and the models behind these pipelines.</p>
+
+        <div class="centered-image">
+            <img src="images_bioinfo/st3.png" alt="Database Method" class="elegant-image"></div>
+
+        <br class="space-md">
+        <p><strong>Fig 6</strong> Representation of spatial transcriptomic workflow. Printed from Pineiro et al.</p>
+        
+        <br class="spacing-md">
+        <p>Firstly, it is important to know that there exist many databases for spatial transcriptomics which serve as essential resources for interpreting 
+            and contextualizing ST data. These databases, such as SOAR, SpatialDB, and SPASCER, provide curated collections of ST datasets across multiple tissues, 
+            developmental stages, and disease states, alongside integrated single-cell RNA-seq reference data that enable cell type deconvolution 
+            (label transfer also comes from single-cell datasets generated from personal experiments). </p>
+        
+        <br class="spacing-md">
+        <p>Additionally, these databases supply ligand-receptor interaction pairs critical for analyzing cell-cell communication, benchmark datasets for validating 
+            spatial domain identification and spatially variable genes, and pre-computed spatial patterns that help distinguish normal tissue architecture from 
+            disease-specific alterations. Without these databases, spatial transcriptomics data would remain difficult to interpret, lacking the biological context 
+            needed to transform raw spatial gene expression into meaningful insights about tissue organization, cellular interactions, and disease mechanisms.</p>
+
+        <br class="space-md">
+        <p><strong>Library preparation methods</strong> for spatial transcriptiomics depends on research interest as always, but the most prominent technologies
+            are in situ hybridization (ISH) an imaged based, in situ sequencing (ISS), and in situ capturing (ISC) a sequenced based technologies. ISH and ISS to 
+            focus on the capturing of specific 
+            genes while ISC captures captures transcripts in an unbiased manner for transcriptiome-wide study. Targeted approaches can be sensitive to transcript 
+            present in the given tissue, but fewer unique genes can be assayed at once but with low effiency (only fractions of RNAs are captured). The resolution 
+            of these technologies refers to how exact of a location is retained for any particular transcript and can range from subcellular localization to a 
+            55 μm-diameter capture spot with distinct x‒y spatial coordinates. One prominent challenge is all ST technologies currently suffer from the suboptimal 
+            depth and/or coverage of the transcripts assayed from intact tissue compared with scRNA-seq (Fig 6 left).</p>
+
+        <br class="space-md">
+        <p>With ISH, we have signals from probes targeting short sequences of transcripts are propagated by consecutive rounds of hybridization, imaging, and probe 
+            stripping (seqFISH methods for example). ISS methods typically involve the hybridization and ligation of a barcoded padlock probe complementary to the RNA 
+            or cDNA of a target gene. Multiple rounds of target amplification and sequencing by ligation then allow for spatial resolution of the distinct target gene. 
+             ISC methods (captures in situ and sequenced ex situ) use capture spots containing an array of RT primers with distinct positional barcodes and poly-T 
+             sequences to capture mRNA transcripts. 
+             RT produces cDNAs that are extracted and sequenced using next-generation sequencing.</p>
+
+        <br class="space-md">
+        <p><strong>The connonical analysis pipeline</strong> is as similar to other sparced datasets analysis pipelines. The steps within preprocessing include but are 
+            not limited to quality control (QC), normalization, and dimensionality reduction. QC metrics such as the number of molecules per capture spot (counts per spot) 
+            and genes per spot indicate the depth of the data. Normalization accounts for differences in sequencing and capture depth across spots and is further 
+            complicated by variations in cellular density across the tissue. Preprocessing comes after raw data processing where  raw sequencing data are processed into 
+            count matrices consisting of genes and capture spots. Next, Clustering groups similar spot transcriptomes, which can be transposed over the original tissue 
+            images for general interpretation after which, mapping and deconvolution combine scRNA-seq data with spatial transcriptomics data to localize cell subpopulations
+            (label transfer). At this stage, ligand‒receptor analyses can be applied to the celltype maps generated from mapping and deconvolution. The proximity of cell 
+            types can help infer cell‒cell communication events (Fig 6 right). It is important to note that downstream analysis for ST data seeks to identify spatial domains with coherent 
+            gene expression, such as tissue niches and cell‒cell interactions which may accounts for neighboring spot information, tissue histology, and cellular morphology.</p>
     </div>
     
     <h3> (2) Highlights on the third research group working on Molecular and Epigenetic regulation of Biological Clocks</h3>
@@ -228,6 +280,14 @@
         underlying the research questions of out studies but they where equally used independently to rapidly establish the chromatin structure of 
         two subprojects in this team. My main work in this team was applying stastiscal pipelines to decode the mechanisms driving the proteome of 
         biological physiology most especially effects of biological rythmicity in physiology</p>
+
+    <p>The physiology of mamals follows a circiadian biological rythm, diurnal for humans and nocturnal for mice. The circadian project aims to study
+        physiology accross both time frames to capture rythmicity niches and decode how they drive gene expressions and important mamal processes like metabolism in the liver. </p>
+
+    <br class="space-md">
+    <p>While mass spectrometry (MS) data remain inherently biased as a result of reasons ranging from sample handling to differences caused by the instrumentation, it has equally
+        gained grounds in the field of proteomics to to capture and study proteins and enzymes (molecular workers) in a given sample in our case the liver. 
+    </p>
 
     <div class="social-links">
         <a href="https://github.com/akabetso" class="social-link" title="GitHub">
