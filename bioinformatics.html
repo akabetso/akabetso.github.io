@@ -17,7 +17,7 @@
 </head>
 <body>
 
-    <h1>Project Portfolio (2023 - present)</h1>
+    <h1>Project Portfolio (2023 - 2026)</h1>
     <p><strong>Summary of projects :</strong></p>
     <div class="project-intro">
         <p>Single-Cell RNA-Seq</p>
@@ -29,9 +29,7 @@
         <p>Molecular Dynamics</p>
         <p>Insilico peptide Optimization</p>
     </div>
-    <p>This page highlights the projects and the technologies used in company standards : For confidentiality purposes, I will only discuss
-        the technologies and methods used leaving out results.
-    </p>
+    <p>This page highlights the projects and the technologies used in company standards</p>
 
     <h2>Institute of Functinal Genomics of Lyon : January 2025 to July 2026</h2>
     <h3> (1) Single Cell Resolution Exploratory and Comparative Analysis applied to support the research work of two research groups :</h3>
@@ -278,24 +276,96 @@
     
     <h3> (2) Highlights on the third research group working on Molecular and Epigenetic regulation of Biological Clocks</h3>
     
-    <br class="spacing-md">
-    <p>I choosed to define ChIP-Seq and ATAC-Seq above because they were used together with single-cell rna-seq to study the regulatory framwork 
-        underlying the research questions of out studies but they where equally used independently to rapidly establish the chromatin structure of 
-        two subprojects in this team. My main work in this team was applying stastiscal pipelines to decode the mechanisms driving the proteome of 
-        biological physiology most especially effects of biological rythmicity in physiology</p>
+    <div class="project-intro">
+        <br class="spacing-md">
+        <p>I choosed to define ChIP-Seq and ATAC-Seq above because they were used together with single-cell rna-seq to study the regulatory framwork 
+            underlying the research questions of out studies but they where equally used independently to rapidly establish the chromatin structure of 
+            two subprojects in this team. My main work in this team was applying stastiscal pipelines to decode the mechanisms driving the proteome of 
+            biological physiology most especially effects of biological rythmicity in physiology</p>
 
-    <p>The physiology of mamals follows a circiadian biological rythm, diurnal for humans and nocturnal for mice. The circadian project aims to study
-        physiology accross both time frames to capture rythmicity niches and decode how they drive gene expressions and important mamal processes like metabolism in the liver.
-        I applied statistical methods to correct for technical and biological noise as well as bias due to limit of detection to infer these functionalities from mass spectrometry
-        data. input data were optain from ms/ms output. While mass spectrometry data remain inherently biased as a result of reasons ranging from sample handling to differences 
-        caused by the instrumentation, it has equally
-        gained grounds in the field of proteomics to to capture and study proteins and enzymes (molecular workers) in a given sample in our case the liver. Firstly, let's briefly introduce
-        mass spectrometry technologies.</p>
+        <p>The physiology of mamals follows a circiadian biological rythm, diurnal for humans and nocturnal for mice. The circadian project aims to study
+            physiology accross both time frames to capture rythmicity niches and decode how they drive gene expressions and important mamal processes like metabolism in the liver.
+            I applied statistical methods to correct for technical and biological noise as well as bias due to limit of detection to infer these functionalities from mass spectrometry
+            data. input data were optain from ms/ms output. While mass spectrometry data remain inherently biased as a result of reasons ranging from sample handling to differences 
+            caused by the instrumentation, it has equally
+            gained grounds in the field of proteomics to to capture and study proteins and enzymes (molecular workers) in a given sample (the liver in our case study).</p>
 
-    <br class="space-md">
-    <p>Mass spectrometry techniques have emerged as high-throughput bioanalytical methods within the field of proteomics. For quantitative analysis of proteomic differences, 
-        several MS-based quantification strategies have been developed over the years. With the most prominent being label-free and label-based approaches. The former type 
-        implies spectral counting and ion intensity-based quantification and the latter type metabolic, enzymatic or chemical labeling strategies. </p>
+        <br class="space-md">
+        <p><strong>A brief description of quantitative proteomics : </strong> It measures abundance changes of many proteins among multiple samples in a high-throughput
+            manner. Results from such measurements provide information on how biological systems respond to environmental perturbations at a genomic scale. According to Zhou Li et al.,
+            2-dimensional gel electrophoresis remains a ground method to achieve quantification by measuring staining intensities of protein spots but has a variety of limitation 
+            ranging from gel-to-gel variability, chalenges for gel spots containing multiple co-migrating proteins, maybe limited by the number of quantifiable proteins in a gel, 
+            a bias against membrane proteins, and a low sample throughput. A shotgun proteomics approach emmerged where proteins are typically digested using proteases into peptides.
+            and further analyzed using liquid chromatography coupled with tandem mass spectrometry (LC−MS/MS). This approach is broadly classified into two <strong>label-free and
+            and lablel based methods.</strong> The <strong>Label-free</strong> approach has no isotopic or chemical modification of proteins or peptides. Here, quantification can be achieved by 
+            correlating protein abundance with either mass spectrometric signal intensities of peptides or the number of MS/MS spectra matched to peptides and proteins 
+            (spectral counting). Label-free method is porpular because it allows simultaneous identification and quantification of proteins without a laborious and costly process 
+            of introducing stable isotopes into samples, and this approach is applicable to samples from any source. However, it is also limited in  quantificationperformance in 
+            terms of accuracy, precision, and reproducibility. <strong>Label based methods</strong> was later developed on the basis of stable istope labeling including 
+            metabololic labeling, enzymatic labling and chemical labling. <strong>Metabolic labling</strong> involves the incorperation of stable heavy isotope in to proteins by 
+            growing in controlled media <strong>(an N-enriched nitrogen source or SILAC)</strong>. allows for sample to grow in different states and combined at the cell level but highly 
+            sinsitive to biases in sample preparation. A better alternative for this limitation is the <strong>Chemical and Enzymatic methods</strong> which have emerged 
+            to label proteins or peptides using different isotopic tags. A handful of labeling possibilities are possible : labling via isotope-coded affinigy tags after lysis;
+            enzymatic labeling at the C-terminus after digestion; or on the primary amine group at the N-terminus and lysine side chain using reductive dimethylation. 
+            Based on these stable-isotope labeling strategies, the abundance ratios of mass-different isotopic variants of peptides are determined using their signal intensities 
+            in full parent ion scans of the LC−MS/MS analysis. Abundance ratios of peptides are then used to infer abundance ratios of their parent proteins.
+        
+            Lastly, it is impportant to note that two similar <strong>Isobaric chemically labling approach</strong> has emerged, isobaric tag for relative and absolute quantification
+            <strong>(iTRAQ)</strong> and tandem mass tag <strong>(TMT)</strong> and are both widely used. After proteolysis, samples are labeled separately with different isotopic 
+            variants of iTRAQ or TMT and are then combined for LC−MS/MS analysis. Both iTRAQ and TMT tags contain three functional parts: a reporter ion group, a mass 
+            normalization group, and an amine-reactive group which tag peptides; balances mass differences to keep them indistinguishable in full scans, 
+            and releases distinct reporter ions in MS/MS to quantify relative peptide abundance across up to eight samples. Multiplexing is a unique capability of iTRAQ and TMT in
+            comparison to the other labeling techniques.</p>
+
+        <br class="space-md">
+        <div class="centered-image">
+            <img src="images_bioinfo/proteomics.png" alt="Database Method" class="elegant-image"></div>
+
+        <br class="space-md">
+        <p><strong>Fig 7</strong> Brief description of quntitative proteomics library preparation. Printed from 
+            <a href="https://www.creative-proteomics.com/resource/label-free-vs-labe-proteomics.htm" target="_blank"> Creative Proteomics</a></p>
+
+        <br class="space-md">
+        <p><strong>Data preprocessing and quality control</strong> form the foundation of quantitative proteomics bioinformatics. Raw mass spectrometry data undergoes peptide 
+            identification through database searching (using tools like MaxQuant, Mascot, Sequest), where experimental spectra are matched against theoretical 
+            peptide sequences from protein databases like UniProt. This step includes filtering for false discovery rates, handling missing values through imputation 
+            methods (e.g., k-nearest neighbors or minimum value imputation for missing-not-at-random data), and normalization to correct for technical variation between samples 
+            (median normalization, quantile normalization, or variance stabilization). For label-free quantification, intensity-based approaches measure peptide peak areas, 
+            while isobaric labeling methods (TMT/iTRAQ) enable multiplexed quantification across multiple samples simultaneously. Quality metrics assess technical reproducibility, 
+            coefficient of variation, and sample correlation to ensure data reliability before downstream analysis.</p>
+
+            <br class="space-md">
+            <p><strong>Differential expression analysis and statistical modeling</strong> identify proteins that change significantly between experimental conditions. Statistical tests like 
+                t-tests, ANOVA, or linear models (implemented in tools like limma, MSstats, or Perseus) determine which proteins are differentially abundant, with multiple 
+                testing correction (Benjamini-Hochberg FDR) to control false positives. For example, comparing wild-type versus knockout samples might reveal 500 significantly 
+                changed proteins (FDR < 0.05, fold-change > 1.5), which are then visualized through volcano plots, heatmaps, or PCA plots to reveal overall expression patterns 
+                and sample clustering. Advanced methods like WGCNA (Weighted Gene Correlation Network Analysis) identify co-expressed protein modules, while time-series analysis 
+                tracks dynamic changes across circadian rhythms or developmental stages, revealing temporal expression patterns and identifying proteins that peak at specific 
+                timepoints.</p>
+
+            <br class="space-md">
+            <p><strong>Functional enrichment and pathway analysis</strong> translate protein lists into biological insights by integrating external knowledge databases. Tools like STRING, 
+                Reactome, KEGG, and Gene Ontology perform enrichment analysis to identify overrepresented biological processes, molecular functions, cellular components, 
+                and signaling pathways among differentially expressed proteins. For instance, if 50 upregulated proteins are enriched in "mitochondrial oxidative phosphorylation", 
+                this suggests altered energy metabolism in the experimental condition. Protein-protein interaction network analysis (using STRING, Cytoscape, or OmniPath) 
+                reveals functional modules and hub proteins that may serve as therapeutic targets, while integration with transcriptomics, metabolomics, or post-translational 
+                modification data provides multi-omics insights into regulatory mechanisms. Machine learning approaches increasingly enable biomarker discovery, 
+                predictive modeling of disease states, and systems-level understanding of complex biological processes through integration of proteomics with clinical metadata 
+                and other molecular layers.</p>
+        
+        <br class="space-md">
+        <div class="centered-image">
+            <img src="images_bioinfo/proteom_biopipeline.png" alt="Database Method" class="elegant-image"></div>
+
+        <br class="space-md">
+        <p><strong>Fig 8</strong> Bioinformatics analysis pipeline. Printed fro Chen C et al.</p>
+    </div>
+
+            
+
+
+
+
 
 
     <div class="social-links">
